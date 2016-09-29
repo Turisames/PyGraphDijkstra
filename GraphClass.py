@@ -1,3 +1,4 @@
+import NodeClass as nc
 
 class Graph:
     def __init__(self):
@@ -11,5 +12,5 @@ class Graph:
         for line in file
             line = line.strip()
             if line != "" or line[0] != "#":
-                lines.append(line)
+                self.__nodes.append(nc.Node().__setFromString__(line))
         file.close()
