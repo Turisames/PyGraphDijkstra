@@ -16,5 +16,12 @@ def main():
     initialNode = None
     finalNode = None
 
+def getFileName():
+    return input("Give the name of the file you want me to read. ")
+
+def createNodesFromFile(fileName = None):
+    if fileName == None:
+        fileName = getFileName()
+
 
 main()

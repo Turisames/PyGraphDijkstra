@@ -17,5 +17,6 @@ class Node:
         self.__name = name
         neighbours = neighbours.split(",")
 
-        for element in neighbours:
-            add
+        for i in range(len(neighbours)):
+            if i % 2 == 0:
+                self.__addNeighbour( neighbours[i],int(neighbours[i+1]) )

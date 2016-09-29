@@ -1,0 +1,8 @@
+# Format:
+# Name;Neighbour1Name,Neighbour1Dist,...,NeighbourNName,NeighbourNDist
+A;B,4
+B;
+C;
+D;
+E;
+F;
