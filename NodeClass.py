@@ -2,13 +2,14 @@ class Node:
     def __init__(self):
         self.__neighbours = []
         self.__name = ""
-        self.__distance = None
+        self.__weight = None
+        self.__visited = False
         self.__previous = None
 
     # Preconditions:
     # Neighbour is a string, distance is an integer.
-    def __addNeighbour__(self, Neighbour, distance):
-        self.__neighbours.append( (Neighbour, distance) )
+    def __addNeighbour__(self, Neighbour, weight):
+        self.__neighbours.append((Neighbour, weight))
 
     def __setFromString__(self, String):
         # Format:
@@ -20,3 +21,5 @@ class Node:
         for i in range(len(neighbours)):
             if i % 2 == 0:
                 self.__addNeighbour( neighbours[i],int(neighbours[i+1]) )
+    def __setVisited__(self, newState):
+        self.__visited = newState

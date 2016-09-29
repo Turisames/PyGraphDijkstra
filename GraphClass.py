@@ -5,8 +5,6 @@ class Graph:
         self.__nodes = []
 
     def __createNodesFromFile__(fileName = None):
-        if fileName == None:
-            fileName = getFileName()
         file = open(fileName, 'r', encoding="utf-8")
         lines = []
         for line in file
@@ -14,3 +12,6 @@ class Graph:
             if line != "" or line[0] != "#":
                 self.__nodes.append(nc.Node().__setFromString__(line))
         file.close()
+
+    def __figureRoute__(self, Start, Finish):
+        pass
