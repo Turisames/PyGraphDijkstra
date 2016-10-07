@@ -28,5 +28,8 @@ class Node:
     def __setDistance__(self, Distance):
         self.__distance = Distance
 
+    def __distance__(self):
+        return self.__distance
+
     def __neighbours__(self):
         return self.__neighbours
