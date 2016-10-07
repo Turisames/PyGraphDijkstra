@@ -31,5 +31,8 @@ class Node:
     def __distance__(self):
         return self.__distance
 
+    def __visited__(self):
+        return self.__visited
+
     def __neighbours__(self):
         return self.__neighbours
