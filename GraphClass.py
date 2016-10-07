@@ -13,6 +13,10 @@ class Graph:
                 self.__nodes.append(nc.Node().__setFromString__(line))
         file.close()
 
+    def __setAllUnvisited__(self):
+        for node in self.__nodes:
+            node.__setVisited__( False )
+
     def __figureRoute__(self, Start = nc.Node, Finish = nc.Node):
         pass
         current = Start
@@ -35,6 +39,7 @@ class Graph:
                 then change it to 8.
                 Otherwise, keep the current value.'''
                 neighbour[0].__setDistance__( dist + neighbour[1] )
+
         '''When we are done considering all of the neighbors of the current node,
         mark the current node as visited and remove it from the unvisited set.
         A visited node will never be checked again.'''
