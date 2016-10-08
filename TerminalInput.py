@@ -17,7 +17,8 @@ def ask_file():
     file.close()
     return filename
 
-
+def print_graph( Graph = gc.Graph ):
+    print(Graph)
 
 def ask_destination():
     print("Which part of the graph would you like to start at?")
