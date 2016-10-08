@@ -17,7 +17,21 @@ def ask_file():
     file.close()
     return filename
 
+
+
+def ask_destination():
+    print("Which part of the graph would you like to start at?")
+    start  = input()
+    print("Where would you like to go on the graph?")
+    finish = input()
+
+    return start, finish
+
 if __name__ == '__main__':
     graph = gc.Graph()
     fileName = ask_file()
     graph.__createNodesFromFile__(fileName)
+
+    Start, Finish = ask_destination()
+
+    graph.__figureRoute__(Start, Finish)

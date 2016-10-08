@@ -36,3 +36,12 @@ class Node:
 
     def __neighbours__(self):
         return self.__neighbours
+
+    def __name__(self):
+        return self.__name
+
+    def __str__(self):
+        output = self.__name
+        for node in self.__neighbours:
+            output += "\n\t" + node.__name__()
+        return output

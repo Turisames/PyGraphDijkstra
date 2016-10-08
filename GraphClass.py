@@ -4,6 +4,12 @@ class Graph:
     def __init__(self):
         self.__nodes = []
 
+    def __str__(self):
+        output = ""
+        for node in self.__nodes:
+            output += node + "\n"
+        return output
+
     def __createNodesFromFile__(fileName = None):
         file = open(fileName, 'r', encoding="utf-8")
         lines = []
