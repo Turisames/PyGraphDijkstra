@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self):
         self.__neighbours = []
@@ -5,6 +6,15 @@ class Node:
         self.__visited = False
         self.__distance = None
         self.__previous = None
+
+    def __name__(self):
+        return self.__name
+
+    def __str__(self):
+        output = self.__name
+        for node in self.__neighbours:
+            output += "\n\t" + node[0]
+        return output
 
     # Preconditions:
     # Neighbour is a string, distance is an integer.
@@ -20,7 +30,7 @@ class Node:
 
         for i in range(len(neighbours)):
             if i % 2 == 0:
-                self.__addNeighbour( neighbours[i],int(neighbours[i+1]) )
+                self.__addNeighbour__( neighbours[i],int(neighbours[i+1]) )
 
     def __setVisited__(self, newState):
         self.__visited = newState
@@ -37,11 +47,8 @@ class Node:
     def __neighbours__(self):
         return self.__neighbours
 
-    def __name__(self):
-        return self.__name
-
-    def __str__(self):
-        output = self.__name
-        for node in self.__neighbours:
-            output += "\n\t" + node.__name__()
-        return output
+    @classmethod
+    def __createFromString__(self, String):
+        node = Node()
+        node.__setFromString__(String)
+        return node

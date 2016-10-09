@@ -7,16 +7,16 @@ class Graph:
     def __str__(self):
         output = ""
         for node in self.__nodes:
-            output += node + "\n"
+            output += str(node) + "\n"
         return output
 
-    def __createNodesFromFile__(fileName = None):
+    def __createNodesFromFile__(self, fileName = ""):
         file = open(fileName, 'r', encoding="utf-8")
-        lines = []
-        for line in file
+        for line in file:
             line = line.strip()
-            if line != "" or line[0] != "#":
-                self.__nodes.append(nc.Node().__setFromString__(line))
+            if len(line) != 0 and line[0] != "#":
+                #print(line) # Unnecessary, legacy.
+                self.__nodes.append(nc.Node().__createFromString__(line))
         file.close()
 
     def __setAllUnvisited__(self):
