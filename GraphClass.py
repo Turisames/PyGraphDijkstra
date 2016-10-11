@@ -6,16 +6,17 @@ class Graph:
 
     def __str__(self):
         output = ""
+        # TODO: I could probably make the following part a little bit more efficient
+        # So I don't have to remove the line break at the end.
         for node in self.__nodes:
             output += str(node) + "\n"
-        return output
+        return output[:-1]
 
     def __createNodesFromFile__(self, fileName = ""):
         file = open(fileName, 'r', encoding="utf-8")
         for line in file:
             line = line.strip()
             if len(line) != 0 and line[0] != "#":
-                #print(line) # Unnecessary, legacy.
                 self.__nodes.append(nc.Node().__createFromString__(line))
         file.close()
 
