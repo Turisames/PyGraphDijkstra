@@ -48,8 +48,11 @@ class Graph:
                 and assign the smaller one.
                 For example, if the current node A is marked with a distance of 6,
                 and the edge connecting it with a neighbor B has length 2,'''
-                if closest == None or neighbour.__distance__() == None \
-                        or closest.__distance__() > neighbour.__distance__():
+
+                if neighbour.__distance__() == None:
+                    neighbour.__setDistance__( dist + neighbourTuple[1] )
+
+                if closest == None or closest.__distance__() > neighbour.__distance__():
                     neighbour.__setDistance__( dist + neighbourTuple[1] )
                     closest = neighbour
 
@@ -72,6 +75,7 @@ class Graph:
 
         # This is where we go to the next node.
         if closest != None:
+            dist += closest.__distance__()
             current = closest
             return self.__algo__(current, dist, Finish)
         # This is where we get to, if no reasonable route could be found.
