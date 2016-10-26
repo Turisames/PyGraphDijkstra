@@ -78,10 +78,11 @@ class Graph:
 
         # This is where we go to the next node.
         if closest != None:
-            # The distance will change.
-            dist += closest.__distance__()
             # -- as we move on to the next one.
             current = closest
+            # The distance will change.
+            #dist += closest.__distance__()
+            dist = current.__distance__()
             return self.__algo__(current, dist, Finish)
         # This is where we get to, if no reasonable route could be found.
         else:
