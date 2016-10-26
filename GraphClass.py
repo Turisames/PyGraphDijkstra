@@ -53,9 +53,11 @@ class Graph:
             # The algorithm was a success.
             return True
 
+        # This is where we go to the next node.
         if closest != None:
             current = closest
             return self.__algo__(current, dist, Finish)
+        # This is where we get to, if no reasonable route could be found.
         else:
             return False
 
