@@ -29,28 +29,43 @@ class Graph:
         '''For the current node, consider all of its unvisited neighbors
         and calculate their tentative distances.
         '''
-        for neighbour in current.__neighbours__():
+        if type(current) is str:
+            current = self.__nodes[ current ]
+
+        # Initiating the variable 'closest'
+        closest = None
+
+        for neighbourTuple in current.__neighbours__():
+
+            # The neighbours are stored as Tuple.
+            # This line will draw out the node instance.
+            neighbour = self.__nodes[ neighbourTuple[0] ]
+
             # A visited node will never be checked again.
             if not neighbour.__visited__():
                 '''Compare the newly calculated tentative distance to the current assigned value
                 and assign the smaller one.
                 For example, if the current node A is marked with a distance of 6,
                 and the edge connecting it with a neighbor B has length 2,'''
-                if closest == None or closest.__distance__() > neighbour.__distance__():
+                if closest == None or neighbour.__distance__() == None \
+                        or closest.__distance__() > neighbour.__distance__():
+                    neighbour.__setDistance__( dist + neighbourTuple[1] )
                     closest = neighbour
 
-                if neighbour[0].__distance__() > ( dist + neighbour[1] ):
+                if neighbour.__distance__() > ( dist + neighbourTuple[1] ):
                     '''then the distance to B (through A) will be 6 + 2 = 8.
                     If B was previously marked with a distance greater than 8
                     then change it to 8.
                     Otherwise, keep the current value.'''
-                    neighbour[0].__setDistance__( dist + neighbour[1] )
+                    neighbour.__setDistance__( dist + neighbourTuple[1] )
 
         '''When we are done considering all of the neighbors of the current node,
         mark the current node as visited and remove it from the unvisited set.'''
         current.__setVisited__( True )
 
-        if Finish.__visited__():
+        #Finish = self.__nodes[Finish]
+
+        if self.__nodes[ Finish ].__visited__():
             # The algorithm was a success.
             return True
 
