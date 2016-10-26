@@ -2,7 +2,7 @@ import NodeClass as nc
 
 class Graph:
     def __init__(self):
-        self.__nodes = []
+        self.__nodes = {}
 
     def __str__(self):
         output = ""
@@ -17,7 +17,8 @@ class Graph:
         for line in file:
             line = line.strip()
             if len(line) != 0 and line[0] != "#":
-                self.__nodes.append(nc.Node().__createFromString__(line))
+                self.__nodes[ line.split(';')[0] ] = nc.Node().__createFromString__(line)
+                #self.__nodes.append(nc.Node().__createFromString__(line))
         file.close()
 
     def __setAllUnvisited__(self):
