@@ -23,7 +23,10 @@ class Graph:
 
     def __setAllUnvisited__(self):
         for node in self.__nodes:
-            node.__setVisited__( False )
+            current = self.__nodes[ node ]
+            current.__setVisited__( False )
+            current.__setNext__( None )
+            current.__setDistance__( None )
 
     def __algo__(self, current, dist, Finish = nc.Node):
         '''For the current node, consider all of its unvisited neighbors
@@ -75,7 +78,9 @@ class Graph:
 
         # This is where we go to the next node.
         if closest != None:
+            # The distance will change.
             dist += closest.__distance__()
+            # -- as we move on to the next one.
             current = closest
             return self.__algo__(current, dist, Finish)
         # This is where we get to, if no reasonable route could be found.
@@ -86,6 +91,7 @@ class Graph:
         current = Start
         dist = 0
         closest = None
+        self.__setAllUnvisited__()
 
         Result = self.__algo__(current, dist, Finish)
         if Result == False:
