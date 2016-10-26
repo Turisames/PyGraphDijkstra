@@ -5,6 +5,7 @@ class Node:
         self.__name = ""
         self.__visited = False
         self.__distance = None
+        self.__next = None
         self.__previous = None
 
     def __name__(self):
@@ -46,6 +47,12 @@ class Node:
 
     def __neighbours__(self):
         return self.__neighbours
+
+    def __next__(self):
+        return self.__next
+
+    def __setNext__(self, Next):
+        self.__next = Next
 
     @classmethod
     def __createFromString__(self, String):

@@ -7,7 +7,7 @@ class Graph:
     def __str__(self):
         output = ""
         # TODO: I could probably make the following part a little bit more efficient
-        # So I don't have to remove the line break at the end.
+        # TODO: So I don't have to remove the line break at the end.
         for node in self.__nodes:
             output += str(node) + "\n"
         return output[:-1]
@@ -31,6 +31,7 @@ class Graph:
         '''
         if type(current) is str:
             current = self.__nodes[ current ]
+            current.__setDistance__( 0 ) # First round.
 
         # Initiating the variable 'closest'
         closest = None
@@ -63,7 +64,7 @@ class Graph:
         mark the current node as visited and remove it from the unvisited set.'''
         current.__setVisited__( True )
 
-        #Finish = self.__nodes[Finish]
+        current.__setNext__( closest )
 
         if self.__nodes[ Finish ].__visited__():
             # The algorithm was a success.
@@ -86,3 +87,10 @@ class Graph:
         if Result == False:
             # The whole thing failed.
             print("No route exists between these nodes.")
+        else:
+            current = self.__nodes[ Start ]
+            while current.__name__() != Finish:
+                print( current.__name__() + " " + str(current.__distance__()) )
+                current = current.__next__()
+            print( current.__name__() + " " + str(current.__distance__()) )
+            print("Done.")
