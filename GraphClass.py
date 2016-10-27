@@ -8,7 +8,8 @@ class Graph:
         output = ""
         # TODO: I could probably make the following part a little bit more efficient
         # TODO: So I don't have to remove the line break at the end.
-        for node in self.__nodes:
+        for piece in self.__nodes:
+            node = self.__nodes[ piece ]
             output += str(node) + "\n"
         return output[:-1]
 
@@ -33,7 +34,11 @@ class Graph:
         and calculate their tentative distances.
         '''
         if type(current) is str:
-            current = self.__nodes[ current ]
+            try:
+                current = self.__nodes[ current ]
+            except KeyError:
+                print("Names of the nodes aren't right.")
+                return False
             current.__setDistance__( 0 ) # First round.
 
         # Initiating the variable 'closest'
@@ -89,6 +94,13 @@ class Graph:
             return False
 
     def __figureRoute__(self, Start = nc.Node, Finish = nc.Node):
+        if Start not in self.__nodes:
+            print("Node", Start, "does not exist.")
+            return
+        if Finish not in self.__nodes:
+            print("Node", Finish, "does not exist.")
+            return
+
         current = Start
         dist = 0
         closest = None
@@ -97,7 +109,7 @@ class Graph:
         Result = self.__algo__(current, dist, Finish)
         if Result == False:
             # The whole thing failed.
-            print("No route exists between these nodes.")
+            print("No route could be found.\n")
         else:
             current = self.__nodes[ Start ]
             while current.__name__() != Finish:

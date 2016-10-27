@@ -2,17 +2,25 @@ import  GraphClass as gc
 
 def ask_file():
     print("Give the name of the file that has the graph you want to inspect.")
-    filename = input()
-    try:
-        file = open(filename)
-        file.close()
-    except FileNotFoundError:
-        print("That file does not exist.")
-        print("Try another one.")
-    except EOFError:
-        print("No data could be read from the file.")
+    print("Empty space will abort this inquiry.")
+    success = False
+    while success == False:
+        filename = input()
+        if filename.strip() == "":
+            print("Give an actual filename, with characters.")
+            return False
+        try:
+            file = open(filename)
+            file.close()
+            break
+        except FileNotFoundError:
+            print("That file does not exist.")
+            print("Try another one.")
+            continue
+        except EOFError:
+            print("No data could be read from the file.")
+            continue
 
-    file.close()
     return filename
 
 def ask_destination():
@@ -42,7 +50,8 @@ def main():
         #
         if command == "a":
             fileName = ask_file()
-            graph.__createNodesFromFile__(fileName)
+            if fileName != False:
+                graph.__createNodesFromFile__(fileName)
         elif command == "b":
             Start, Finish = ask_destination()
             graph.__figureRoute__(Start, Finish)
