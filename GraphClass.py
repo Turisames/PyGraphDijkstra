@@ -39,6 +39,7 @@ class Graph:
 
         # Initiating the variable 'closest'
         closest = None
+        print("########", current.__name__(), "########")
 
         for neighbourTuple in current.__neighbours__():
 
@@ -60,12 +61,19 @@ class Graph:
                     neighbour.__setDistance__( dist + neighbourTuple[1] )
                     closest = neighbour
 
+                # If we can see the Finish now, move onto it right away!
+                '''if neighbour.__name__() == Finish:
+                    closest = neighbour
+                    break
+                '''
+                # Otherwise, keep looking.
                 if neighbour.__distance__() > ( dist + neighbourTuple[1] ):
                     '''then the distance to B (through A) will be 6 + 2 = 8.
                     If B was previously marked with a distance greater than 8
                     then change it to 8.
                     Otherwise, keep the current value.'''
                     neighbour.__setDistance__( dist + neighbourTuple[1] )
+                print( neighbour.__name__(), neighbour.__distance__() )
 
         '''When we are done considering all of the neighbors of the current node,
         mark the current node as visited and remove it from the unvisited set.'''
@@ -91,17 +99,16 @@ class Graph:
 
     def __figureRoute__(self, Start = nc.Node, Finish = nc.Node):
         Result = False
-        rightkey = True
+        algorithm_can_be_done = True
         if Start not in self.__nodes:
             print("Start node \'" + Start + "\' does not exist.")
-            rightkey = False
+            algorithm_can_be_done = False
         if Finish not in self.__nodes:
             print("Finish node \'" + Finish + "\' does not exist.")
-            rightkey = False
-        if rightkey == True:
+            algorithm_can_be_done = False
+        if algorithm_can_be_done == True:
             current = Start
             dist = 0
-            closest = None
             self.__setAllUnvisited__()
             Result = self.__algo__(current, dist, Finish)
 
