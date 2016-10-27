@@ -34,11 +34,7 @@ class Graph:
         and calculate their tentative distances.
         '''
         if type(current) is str:
-            try:
-                current = self.__nodes[ current ]
-            except KeyError:
-                print("Names of the nodes aren't right.")
-                return False
+            current = self.__nodes[ current ]
             current.__setDistance__( 0 ) # First round.
 
         # Initiating the variable 'closest'
@@ -94,19 +90,21 @@ class Graph:
             return False
 
     def __figureRoute__(self, Start = nc.Node, Finish = nc.Node):
+        Result = False
+        rightkey = True
         if Start not in self.__nodes:
-            print("Node", Start, "does not exist.")
-            return
+            print("Start node \'" + Start + "\' does not exist.")
+            rightkey = False
         if Finish not in self.__nodes:
-            print("Node", Finish, "does not exist.")
-            return
+            print("Finish node \'" + Finish + "\' does not exist.")
+            rightkey = False
+        if rightkey == True:
+            current = Start
+            dist = 0
+            closest = None
+            self.__setAllUnvisited__()
+            Result = self.__algo__(current, dist, Finish)
 
-        current = Start
-        dist = 0
-        closest = None
-        self.__setAllUnvisited__()
-
-        Result = self.__algo__(current, dist, Finish)
         if Result == False:
             # The whole thing failed.
             print("No route could be found.\n")
