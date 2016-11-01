@@ -8,6 +8,12 @@ class Node:
         self.__next = None
         self.__previous = None
 
+    def __previous__(self):
+        return self.__previous
+
+    def __setPrevious__(self, Previous):
+        self.__previous = Previous
+
     def __name__(self):
         return self.__name
 
