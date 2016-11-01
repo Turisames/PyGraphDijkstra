@@ -49,9 +49,11 @@ class Graph:
                 if closest == None or closest.__distance__() > neighbour.__distance__():
                     neighbour.__setDistance__( dist + neighbourTuple[1] )
                     closest = neighbour
+                    closest.__setPrevious__( current )
+                    print( current.__name__(), closest.__name__() ) # TODO: remove this line.
 
                 # If we can see the Finish now, move onto it right away!
-                # Then again, as an optimizing procedure it's rather insignificant
+                # Then again, as an optimizing procedure it's rather insignificant.
                 if neighbour.__name__() == Finish:
                     closest = neighbour
                     break
@@ -63,7 +65,7 @@ class Graph:
                     then change it to 8.
                     Otherwise, keep the current value.'''
                     neighbour.__setDistance__( dist + neighbourTuple[1] )
-                print( neighbour.__name__(), neighbour.__distance__() )
+                #print( neighbour.__name__(), neighbour.__distance__() ) # TODO: remove this line.
         return current, dist, closest
 
     def __pickNextNode__(self, closest):
@@ -78,7 +80,16 @@ class Graph:
                     if node.__distance__() != None and \
                                     node.__distance__() < closest.__distance__():
                         closest = node
+                        print("\t\t" + closest.__name__() ) # TODO: Remove this line
             return closest
+
+    def __formulateRightRoute__(self, Start, Finish = nc.Node):
+        current = self.__nodes[ Finish ]
+
+        # Setting each nodes next node to point to the right one.
+        while current.__previous__() != None:
+            current.__previous__().__setNext__( current )
+            current = current.__previous__()
 
     def __algo__(self, current, dist, Finish = nc.Node):
         '''For the current node, consider all of its unvisited neighbors
@@ -94,21 +105,22 @@ class Graph:
             "closest to current node"
         '''
         closest = None
-
         current, dist, closest = self.__checkNeighbours__( current, dist, closest, Finish )
 
         '''When we are done considering all of the neighbors of the current node,
         mark the current node as visited and remove it from the unvisited set.'''
         current.__setVisited__( True )
-        '''
+
+        # The Finish has been visited. Algorithm done.
         if self.__nodes[ Finish ].__visited__():
             # The algorithm was a success.
             return True
-        '''
+
         # This is where we go to the next node.
         if closest != None:
             # -- as we move on to the next one.
             current.__setNext__( closest )
+            # closest.__setPrevious__( current )
 
             ''' From this line on, closest refers to
             "closest to source"'''
@@ -148,6 +160,9 @@ class Graph:
             # The whole thing failed.
             print("No route could be found.\n")
         elif Result == True:
+            # Set the route right.
+            self.__formulateRightRoute__(Start, Finish)
+
             current = self.__nodes[ Start ]
             print("The route is:")
             while current.__name__() != Finish:
